@@ -11,7 +11,7 @@ import UIKit
 //MARK: Class
 
 class HWViewController: UIViewController {
-
+    
     var sampleString: String?
     
     override func viewDidLoad() {
@@ -39,7 +39,17 @@ class HWViewController: UIViewController {
         swapTwoNumbers(a: 10, b: 20)
         
         //Sample closure
-        sampleClosure()
+        sampleClosure1()
+        
+        // Longer Version
+        let closure1 = sampleClosure2(from: 0, to: 10, closure: { number in return number * 10 })
+        print("closure 1 = \(closure1)")
+        // Shorter Version
+        let closure2 = sampleClosure2(from: 0, to: 10, closure: { $0 * 10 })
+        print("closure 2 = \(closure2)")
+        
+        HWServiceManager.sharedManager.serviceCall()
+        
     }
     
     /// This method used for print the variables
@@ -104,9 +114,9 @@ class HWViewController: UIViewController {
         print(firstObj.overAllMark, firstObj.percentage)
         
         /*
-             1) Structs are value types.
-             2) Can't inherit
-             3) Structs have handy memberwise initializers. All properties must be specified.
+         1) Structs are value types.
+         2) Can't inherit
+         3) Structs have handy memberwise initializers. All properties must be specified.
          */
     }
     
@@ -122,7 +132,7 @@ class HWViewController: UIViewController {
     }
     
     //This method will explains about the closure
-    func sampleClosure() {
+    func sampleClosure1() {
         
         //Example 1 :
         let sayHello = {(name: String) -> String in
@@ -136,8 +146,35 @@ class HWViewController: UIViewController {
             return value1 / value2
         }
         let result = devide(100, 10)
-        print("Closeure example : \(result)")
+        print("Closeure example 1 : \(result)")
+        
+        
+        //Closure Type 1 :
+        let timesTenClosure2: (Int) -> Int = { x in return x * 10 }
+        print("Closeure Type 1 : \(timesTenClosure2(10))")
+        
+        
+        //Closure Type 2 :
+        let timesTenClosure1: (Int) -> Int = { $0 * 10 }
+        print("Closeure Type 2 : \(timesTenClosure1(10))")
+        
+        let multiply: (Int, Int) -> Int = { ($0 * $1) }
+        print("Closeure Type 3 : \(multiply(10, 5))")
     }
+    
+    func sampleClosure2(from: Int, to: Int, closure: (Int) -> (Int)) -> Int {
+        var sum = 0
+        for i in from...to {
+            sum += closure(i)
+        }
+        return sum
+    }
+    
+    //FIXME: Need to exploare about the completion block.
+    func sampleClosure3(input: String, completion: (String) -> Void) {
+        
+    }
+    
 }
 
 //MARK: Struct
@@ -163,7 +200,7 @@ extension Int {
     //var someInt = 3   //Error: ❌❌❌❌
     
     //1) Extensions may not contain stored properties
-
+    
     func isOdd () -> Bool{
         return self % 2 != 0
     }
