@@ -43,6 +43,4 @@ class HWServiceManager: NSObject {
         }
         task.resume()
     }
-    
-    //Check reverse commit action with bla bla bla....!!!
 }
