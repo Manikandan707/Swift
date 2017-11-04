@@ -45,6 +45,4 @@ class HWServiceManager: NSObject {
     }
     
     ///Test reset commit action...
-    
-    //Reverse commit test 1
 }
