@@ -43,4 +43,6 @@ class HWServiceManager: NSObject {
         }
         task.resume()
     }
+    
+    ///Test reset commit action...
 }
