@@ -14,7 +14,7 @@ class HWServiceManager: NSObject {
     
     func serviceCall() {
         let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=12.9760,80.2212&radius=1000&type=restaurant&keyword=hotels&key=AIzaSyBc_gU87l68hGZbtfMh-vFCzllMy1CEKP8"
-`
+
         guard let requestURL = URL.init(string: url) else { return }
         
         let urlRequest = URLRequest.init(url: requestURL)
