@@ -12,6 +12,17 @@ import UIKit
 
 class HWViewController: UIViewController {
     
+    //Property observer declaration
+    var score = 0 {
+        willSet {
+            print("Score is about to change to \(newValue)")
+        }
+        
+        didSet {
+            print("Score just changed from \(oldValue) to \(score)")
+        }
+    }
+
     var sampleString: String?
     
     override func viewDidLoad() {
@@ -54,6 +65,15 @@ class HWViewController: UIViewController {
         //GCD examples
         SampleDispatch.queueTest8()
         
+        //Sample Property Observer
+        score = 10
+        
+        //Sample computed proterty
+        
+        let goalTracker = SampleComputedProperty()
+        goalTracker.width = 20.0
+        goalTracker.height = 20.0
+        print("Area = \(goalTracker.area)")
     }
     
     /// This method used for print the variables
@@ -233,4 +253,24 @@ extension HWViewController {
         print("After swap a = \(num1) b = \(num2)")
     }
 }
+
+//Sample computed property
+
+class SampleComputedProperty {
+    var width = 100.0
+    var height = 100.0
+    
+    // computing setter and getter
+    var area: Double {
+        get {
+            return width * height
+        }
+        set(newArea) {
+            let squareRootValue = sqrt(newArea)
+            width = squareRootValue
+            height = squareRootValue
+        }
+    }
+}
+
 
