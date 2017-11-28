@@ -48,7 +48,11 @@ class HWViewController: UIViewController {
         let closure2 = sampleClosure2(from: 0, to: 10, closure: { $0 * 10 })
         print("closure 2 = \(closure2)")
         
+        //Web service example
         HWServiceManager.sharedManager.serviceCall()
+        
+        //GCD examples
+        SampleDispatch.queueTest8()
         
     }
     
