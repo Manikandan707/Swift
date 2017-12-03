@@ -65,15 +65,17 @@ class HWViewController: UIViewController {
         //GCD examples
         SampleDispatch.queueTest8()
         
-        //Sample Property Observer
-        score = 10
+        //Sample for computed property
+        self.sampleComputedProperty()
         
-        //Sample computed proterty
+        //Sample for lazy property
+        self.sampleLazyProperty()
         
-        let goalTracker = SampleComputedProperty()
-        goalTracker.width = 20.0
-        goalTracker.height = 20.0
-        print("Area = \(goalTracker.area)")
+        //Sample for Tuple
+        SampleTupleClass.sampleTupleMethod()
+        
+        let sampleEnumClass = SampleEnumClass()
+        sampleEnumClass.sampleEnumMethodForiOS()
     }
     
     /// This method used for print the variables
@@ -199,6 +201,29 @@ class HWViewController: UIViewController {
         
     }
     
+    
+    func sampleComputedProperty() {
+        //Sample Property Observer
+        score = 10
+        
+        //Sample computed proterty
+        
+        let goalTracker = SampleComputedProperty()
+        goalTracker.width = 20.0
+        goalTracker.height = 20.0
+        print("Area = \(goalTracker.area)")
+    }
+    
+    func sampleLazyProperty() {
+        var person1 = InterviewCandidate()
+        person1.isiOS = true
+        
+        if person1.isiOS! {
+            print(person1.iOSResumeDescription)
+        } else {
+            print(person1.androidResumeDescription)
+        }
+    }
 }
 
 //MARK: Struct
@@ -273,4 +298,68 @@ class SampleComputedProperty {
     }
 }
 
+struct InterviewCandidate {
+    var isiOS:Bool?
+    
+    lazy var iOSResumeDescription: String = {
+        return "I am an iOS developer"
+    }()
+    lazy var androidResumeDescription: String = {
+        return "I am an android developer"
+    }()
+}
 
+class SampleTupleClass {
+    
+    //IMPORTANT: TUPLE IS A VALUE TYPE
+    
+    /// This method will explain about the tuple concept.
+    class func sampleTupleMethod() {
+        
+        let iPhone = (osVersion: "10.0", type:"X", color:"Space Gray")
+        print("iPhone \(iPhone.type) with \(iPhone.osVersion) OS and \(iPhone.color) color...!")
+        
+        let(osVersion, type, color) = iPhone
+        print("iOS = \(osVersion), type = \(type), color = \(color)")
+        
+        //VALUE TYPE EXAMPLE
+        
+        var stoleniPhone = iPhone
+        stoleniPhone.osVersion = "11.0"
+        stoleniPhone.color = "Rose Gold"
+        print("stoleniPhone \(stoleniPhone.type) with \(stoleniPhone.osVersion) OS and \(stoleniPhone.color) color...!")
+
+        let divMod = self.divMod(7, 3)
+        print("division = \(divMod.0), modulus = \(divMod.1)")
+    }
+    
+    class func divMod(_ a: Int, _ b: Int) -> (Int, Int) {
+        return (a/b, a%b)
+    }
+}
+
+class SampleEnumClass {
+    
+    enum iOSDevice {
+        case iPhone
+        case iPad
+        case iWatch
+        case otherDevice
+    }
+    
+    func sampleEnumMethodForiOS() {
+        
+        let myDevice = iOSDevice.iPhone
+        
+        switch myDevice {
+        case .iPhone:
+            print("iPhone")
+        case .iPad:
+            print("iPad")
+        case .iWatch:
+            print("iWatch")
+        default:
+            print("Non iOS device")
+        }
+    }
+}
