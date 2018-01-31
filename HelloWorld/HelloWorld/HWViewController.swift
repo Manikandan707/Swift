@@ -59,8 +59,14 @@ class HWViewController: UIViewController {
         let closure2 = sampleClosure2(from: 0, to: 10, closure: { $0 * 10 })
         print("closure 2 = \(closure2)")
         
+        //Sample for 'inout'
+        let sampleInOutClass = SampleInOutClass()
+        sampleInOutClass.sampleInOutMethod()
+        
         //Web service example
-        HWServiceManager.sharedManager.serviceCall()
+        HWServiceManager.sharedManager.serviceCall { (result) in
+            print(result)
+        }
         
         //GCD examples
         SampleDispatch.queueTest8()
@@ -74,8 +80,10 @@ class HWViewController: UIViewController {
         //Sample for Tuple
         SampleTupleClass.sampleTupleMethod()
         
+        //Sample for enum
         let sampleEnumClass = SampleEnumClass()
         sampleEnumClass.sampleEnumMethodForiOS()
+        
     }
     
     /// This method used for print the variables
@@ -361,5 +369,37 @@ class SampleEnumClass {
         default:
             print("Non iOS device")
         }
+    }
+}
+
+class SampleInOutClass {
+    var num1: Int = 1
+    var char1: String = "Mac Mini"
+    
+    func changeNumber(num: Int) {
+        var num = num
+        num = 2
+        print(num) // 2
+        print(num1) // 1
+    }
+    
+    func size(x: inout Int) {
+        // Set out parameter.
+        x = 10
+    }
+    
+
+    func sampleInOutMethod() {
+        changeNumber(num: num1)
+
+        // Value equals 0.
+        var x = 0
+        print("sampleInOutMethod = \(x)")
+        
+        // Call size with inout argument.
+        size(x: &x)
+        
+        // Now variable equals 10.
+        print("sampleInOutMethod = \(x)")
     }
 }
